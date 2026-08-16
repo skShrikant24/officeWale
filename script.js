@@ -43,26 +43,13 @@ const songs = [
 
 let currentIndex = 0;
 let currentFilter = "all";
-let fakePlaying = false;
-let timer = null;
-let elapsed = 0;
-const fakeDuration = 270;
 
 const songList = document.getElementById("songList");
 const titleEl = document.getElementById("trackTitle");
 const artistEl = document.getElementById("trackArtist");
 const playBtn = document.getElementById("playBtn");
-const progress = document.getElementById("progress");
-const currentTimeEl = document.getElementById("currentTime");
-const durationEl = document.getElementById("duration");
-const cover = document.getElementById("cover");
 const countEl = document.getElementById("songCount");
 const shuffleToggle = document.getElementById("shuffleToggle");
-
-function fmt(sec){
-  const m=Math.floor(sec/60), s=String(Math.floor(sec%60)).padStart(2,"0");
-  return `${m}:${s}`;
-}
 
 function youtubeUrl(song){
   return "https://www.youtube.com/results?search_query="+encodeURIComponent(song.q);
@@ -95,36 +82,23 @@ function selectSong(index, open=false){
   const s=songs[currentIndex];
   titleEl.textContent=s.title;
   artistEl.textContent=s.artist;
-  elapsed=0; progress.value=0; currentTimeEl.textContent="0:00";
-  durationEl.textContent=fmt(fakeDuration);
   renderSongs();
   if(open) window.open(youtubeUrl(s), "_blank", "noopener");
 }
 
 function togglePlay(){
-  fakePlaying=!fakePlaying;
-  playBtn.textContent=fakePlaying?"❚❚":"▶";
-  cover.classList.toggle("playing", fakePlaying);
-  clearInterval(timer);
-  if(fakePlaying){
-    timer=setInterval(()=>{
-      elapsed=Math.min(fakeDuration, elapsed+1);
-      progress.value=(elapsed/fakeDuration)*100;
-      currentTimeEl.textContent=fmt(elapsed);
-      if(elapsed>=fakeDuration) nextSong();
-    },1000);
-  }
+  // This site does not host song audio. Open the selected song on YouTube
+  // instead of showing a fake local playback state with no sound.
+  window.open(youtubeUrl(songs[currentIndex]), "_blank", "noopener");
 }
 
 function nextSong(){
-  clearInterval(timer);
   if(shuffleToggle.checked){
     let n=currentIndex;
     while(n===currentIndex && songs.length>1) n=Math.floor(Math.random()*songs.length);
     currentIndex=n;
   }else currentIndex=(currentIndex+1)%songs.length;
   selectSong(currentIndex,false);
-  if(fakePlaying) togglePlay(), togglePlay();
 }
 
 function prevSong(){
@@ -137,10 +111,6 @@ document.getElementById("nextBtn").addEventListener("click",nextSong);
 document.getElementById("prevBtn").addEventListener("click",prevSong);
 document.getElementById("shuffleBtn").addEventListener("click",()=>shuffleToggle.checked=!shuffleToggle.checked);
 document.getElementById("openBtn").addEventListener("click",()=>window.open(youtubeUrl(songs[currentIndex]),"_blank","noopener"));
-progress.addEventListener("input",()=>{
-  elapsed=fakeDuration*(Number(progress.value)/100);
-  currentTimeEl.textContent=fmt(elapsed);
-});
 
 document.querySelectorAll(".filter").forEach(btn=>{
   btn.addEventListener("click",()=>{
