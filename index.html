@@ -42,13 +42,16 @@
           <div class="now-label">♪ NOW PLAYING</div>
           <div class="player-main">
             <div class="cover" id="cover">
-              <div class="disc">
-                <div class="disc-center">A</div>
-              </div>
+              <div id="youtubePlayer"></div>
             </div>
             <div class="track-meta">
               <h2 id="trackTitle">Kya Mujhe Pyaar Hai</h2>
               <p id="trackArtist">KK</p>
+              <div class="progress-wrap">
+                <span id="currentTime">0:00</span>
+                <input id="progress" type="range" min="0" max="100" value="0" aria-label="Seek" />
+                <span id="duration">0:00</span>
+              </div>
               <div class="controls">
                 <button id="shuffleBtn" title="Shuffle">🔀</button>
                 <button id="prevBtn" title="Previous">⏮</button>
@@ -56,7 +59,7 @@
                 <button id="nextBtn" title="Next">⏭</button>
                 <button id="openBtn" title="Open on YouTube">↗</button>
               </div>
-              <p class="helper">Press Play to open the selected song on YouTube with sound. Audio is not hosted on this website.</p>
+              <p class="helper" id="playerStatus">Loading the music player…</p>
             </div>
           </div>
         </div>

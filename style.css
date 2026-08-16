@@ -82,7 +82,8 @@ h1 span{color:var(--orange);font-size:.74em}
 }
 .now-label{color:var(--orange);font-weight:800;letter-spacing:1px;margin-bottom:16px}
 .player-main{display:flex;gap:24px;align-items:center}
-.cover{width:190px;aspect-ratio:1;border-radius:18px;background:#0d1015;display:grid;place-items:center;overflow:hidden;flex:none}
+.cover{width:220px;aspect-ratio:1;border-radius:18px;background:#0d1015;display:grid;place-items:center;overflow:hidden;flex:none}
+.cover iframe{width:220px;height:220px;border:0}
 .disc{width:155px;height:155px;border-radius:50%;background:repeating-radial-gradient(circle at center,#0a0a0a 0 7px,#171717 8px 10px);display:grid;place-items:center;box-shadow:0 0 0 1px #333}
 .disc-center{width:42px;height:42px;background:var(--orange);border-radius:50%;display:grid;place-items:center;color:#111;font-weight:900}
 .playing .disc{animation:spin 5s linear infinite}
@@ -161,7 +162,7 @@ body.light .topbar,body.light .playlist-panel,body.light .vibe-card{background:r
   h1{font-size:58px}
   .tagline{font-size:13px}
   .player-main{flex-direction:column}
-  .cover{width:160px}
+  .cover,.cover iframe{width:200px;height:200px}
   .track-meta{width:100%}
   .playlist-panel{padding:14px}
   .panel-title h2{font-size:15px}
